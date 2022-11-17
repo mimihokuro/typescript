@@ -16,29 +16,27 @@ type Analytics = {
   count: number;
 }[];
 
-type TweetProps = {
-  type: "tweet";
+type CommonProps = {
   user: User;
   body: Body;
   analytics: Analytics;
+};
+
+type TweetProps = {
+  type: "tweet";
 };
 
 type RetweetProps = {
   type: "retweet";
   retweetedUser: string;
-  user: User;
-  body: Body;
-  analytics: Analytics;
 };
 
 type PromotionProps = {
   type: "promotion";
-  user: User;
-  body: Body;
-  analytics: Analytics;
 };
 
-type TwitterCardProps = TweetProps | RetweetProps | PromotionProps;
+type TwitterCardProps = CommonProps &
+  (TweetProps | RetweetProps | PromotionProps);
 
 export const TwitterCard = (props: TwitterCardProps) => {
   return (
