@@ -1,9 +1,12 @@
 import { NextPage } from "next";
+import image from "next/image";
 import { TwitterCard } from "../components/TwitterCard";
 
 const Home: NextPage = () => {
   return (
     <TwitterCard
+      type="retweet"
+      retweetedUser="dot"
       user={{
         name: "mimihokuro",
         accountName: "mimi_hokuro",

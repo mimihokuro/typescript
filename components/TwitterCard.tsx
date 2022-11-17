@@ -1,25 +1,53 @@
 /* eslint-disable @next/next/no-img-element */
 
-type TwitterCardProps = {
-  user: {
-    name: string;
-    accountName: string;
-    image: string;
-  };
-  body: {
-    text: string;
-    image?: string;
-  };
-  analytics: {
-    path: string;
-    count: number;
-  }[];
+type User = {
+  name: string;
+  accountName: string;
+  image: string;
 };
+
+type Body = {
+  text: string;
+  image?: string;
+};
+
+type Analytics = {
+  path: string;
+  count: number;
+}[];
+
+type TweetProps = {
+  type: "tweet";
+  user: User;
+  body: Body;
+  analytics: Analytics;
+};
+
+type RetweetProps = {
+  type: "retweet";
+  retweetedUser: string;
+  user: User;
+  body: Body;
+  analytics: Analytics;
+};
+
+type PromotionProps = {
+  type: "promotion";
+  user: User;
+  body: Body;
+  analytics: Analytics;
+};
+
+type TwitterCardProps = TweetProps | RetweetProps | PromotionProps;
 
 export const TwitterCard = (props: TwitterCardProps) => {
   return (
     <div className="bg-gray-200 pt-20 pb-80 flex items-center justify-center">
       <div className="bg-white border-gray-200 p-4 rounded-xl border max-w-xl min-w-[480px]">
+        {props.type === "promotion" ? "プロモーション広告" : null}
+        {props.type === "retweet"
+          ? `${props.retweetedUser}リツイートしました`
+          : null}
         {/* ユーザー */}
         <div className="flex items-center">
           <img
